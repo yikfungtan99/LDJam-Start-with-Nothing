@@ -126,6 +126,19 @@ public class playerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
         }
+
+        if(!selected && !gm.gameEnd)
+        {
+            if(rb.velocity.x > 0)
+            {
+                rb.velocity = new Vector2((rb.velocity.x - 2 * Time.deltaTime), rb.velocity.y);
+            }
+
+            if (rb.velocity.x <= 0)
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+        }
     }
 
     void Swallow(GameObject target)
