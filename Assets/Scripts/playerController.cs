@@ -28,6 +28,10 @@ public class playerController : MonoBehaviour
 
     RaycastHit2D groundCheck;
 
+    public float eatCheckRange = 1f;
+    RaycastHit2D eatCheck;
+    public LayerMask edibleLayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +40,8 @@ public class playerController : MonoBehaviour
      
     private void Update()
     {
+        eatCheck = Physics2D.Raycast(transform.position, -Vector2.up, eatCheckRange, edibleLayer);
+
         if (selected && !gm.gameEnd)
         {
             if (imStart)
@@ -64,6 +70,19 @@ public class playerController : MonoBehaviour
                 canJump = true;
             }
         }
+
+        //Power
+        if (imNothing)
+        {
+            if (eatCheck)
+            {
+                if (eatCheck.collider != null)
+                {
+                    Debug.Log(eatCheck.collider.gameObject);
+                }
+            }
+        }
+
     }
 
     // Update is called once per frame

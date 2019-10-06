@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startSelected = true;
+        startSelected = false;
         nothingSelected = false;
 
         pStart.GetComponent<playerController>().selected = true;
@@ -41,7 +41,13 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if(pStart.GetComponent<playerController>().selected == true)
+            if (!pStart.GetComponent<playerController>().selected && !pNothing.GetComponent<playerController>().selected)
+            {
+                startSelected = true;
+                CameraChange(camStart);
+            }
+
+            if (pStart.GetComponent<playerController>().selected)
             {
                 startSelected = false;
                 nothingSelected = true;
@@ -49,7 +55,7 @@ public class GameManager : MonoBehaviour
                 CameraChange(camNothing);
             }
 
-            if(pNothing.GetComponent<playerController>().selected == true)
+            if(pNothing.GetComponent<playerController>().selected)
             {
                 startSelected = true;
                 nothingSelected = false;
