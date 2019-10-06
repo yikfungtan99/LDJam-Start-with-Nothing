@@ -12,6 +12,7 @@ public class playerController : MonoBehaviour
     public LayerMask nothingLayer;
 
     public GameManager gm;
+    public blockLibrary bl;
 
     public bool selected = false;
 
@@ -28,6 +29,19 @@ public class playerController : MonoBehaviour
 
     RaycastHit2D groundCheck;
 
+    public float eatCheckRange = 1f;
+    RaycastHit2D eatCheck;
+    public LayerMask edibleLayer;
+    private GameObject item;
+
+    public bool haveItem = false;
+    public float placeCheckRange = 1f;
+    RaycastHit2D placeCheck;
+    public LayerMask placeableLayer;
+
+    private GameObject itemToPlace;
+    private GameObject ghostToPlace;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +50,9 @@ public class playerController : MonoBehaviour
      
     private void Update()
     {
+        eatCheck = Physics2D.Raycast(transform.position, -Vector2.up, eatCheckRange, edibleLayer);
+        placeCheck = Physics2D.Raycast(transform.position, -Vector2.up, placeCheckRange, placeableLayer);
+
         if (selected && !gm.gameEnd)
         {
             if (imStart)
@@ -64,6 +81,35 @@ public class playerController : MonoBehaviour
                 canJump = true;
             }
         }
+
+        //Power
+        if (imNothing)
+        {
+            if (eatCheck)
+            {
+                if (eatCheck.collider != null)
+                {
+                    if (Input.GetKeyDown(KeyCode.F) && !haveItem)
+                    {
+                        item = eatCheck.collider.transform.parent.gameObject;
+                        ItemCheck();
+                        Swallow(eatCheck.collider.transform.parent.gameObject);
+                    }
+                }
+            }
+
+            if (placeCheck)
+            {
+                if (placeCheck.collider != null)
+                {
+                    if (Input.GetKeyDown(KeyCode.F) && haveItem)
+                    {
+                        Place(placeCheck.collider.transform.parent.gameObject);
+                    }
+                }
+            }
+        }
+
     }
 
     // Update is called once per frame
@@ -78,6 +124,32 @@ public class playerController : MonoBehaviour
             if (Input.GetButtonDown("Jump") && canJump)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            }
+        }
+    }
+
+    void Swallow(GameObject target)
+    {
+        haveItem = true;
+        Destroy(target);
+        Instantiate(ghostToPlace, target.transform.position, target.transform.rotation);    
+    }
+
+    void Place(GameObject target)
+    {
+        haveItem = false;
+        Destroy(target);
+        Instantiate(itemToPlace, target.transform.position, target.transform.rotation);
+    }
+
+    void ItemCheck()
+    {
+        for(int i = 0; i < bl.blocks.Length; i++)
+        {
+            if (item.name == bl.blocks[i].name)
+            {
+                itemToPlace = bl.blocks[i];
+                ghostToPlace = bl.ghosts[i];
             }
         }
     }

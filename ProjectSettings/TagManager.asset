@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Start
   - Nothing
+  - Edible
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - Platform
   - Not
   - Star
-  - 
-  - 
+  - Edible
+  - Placeable
   - 
   - 
   - 
