@@ -56,6 +56,10 @@ public class pStart : MonoBehaviour
             onPlane = true;
             this.transform.parent = planeCheck.collider.transform;    
         }
+        else
+        {
+            this.transform.SetParent(null);
+        }
     }
 
     private void FixedUpdate()

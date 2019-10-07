@@ -64,6 +64,10 @@ public class Nothing : MonoBehaviour
             onPlane = true;
             this.transform.parent = planeCheck.collider.transform;
         }
+        else
+        {
+            this.transform.SetParent(null);
+        }
         if (groundCheck.collider)
         {
             onGround = true;
@@ -157,6 +161,12 @@ public class Nothing : MonoBehaviour
         if(target.tag == "Start")
         {
             gm.startExists = false;
+        }
+
+        if(target.tag == "Plane")
+        {
+            transform.SetParent(null);
+            gm.pStart.transform.SetParent(null);
         }
 
         target.SetActive(false);

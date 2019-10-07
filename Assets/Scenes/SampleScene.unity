@@ -861,6 +861,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 717967377, guid: 9f67578073009814ba90e4d7bc9f736e, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.6011786
+      objectReference: {fileID: 0}
+    - target: {fileID: 717967377, guid: 9f67578073009814ba90e4d7bc9f736e, type: 3}
+      propertyPath: m_Size.y
+      value: 1.592357
+      objectReference: {fileID: 0}
     - target: {fileID: 717967378, guid: 9f67578073009814ba90e4d7bc9f736e, type: 3}
       propertyPath: speed
       value: 1
@@ -953,6 +961,16 @@ PrefabInstance:
         type: 3}
       propertyPath: startLayer.m_Bits
       value: 8960
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476879669649872021, guid: 56a7d272d6af6f24db7ad6a12db27d36,
+        type: 3}
+      propertyPath: planeLayer.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476879669649872021, guid: 56a7d272d6af6f24db7ad6a12db27d36,
+        type: 3}
+      propertyPath: planeCheckRange
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2476879669649872022, guid: 56a7d272d6af6f24db7ad6a12db27d36,
         type: 3}
@@ -1204,7 +1222,7 @@ PrefabInstance:
     - target: {fileID: 7911023511901707911, guid: cfeebb3639174f6428753ab00597fa04,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.56
+      value: -6.18
       objectReference: {fileID: 0}
     - target: {fileID: 7911023511901707911, guid: cfeebb3639174f6428753ab00597fa04,
         type: 3}
@@ -1270,6 +1288,16 @@ PrefabInstance:
         type: 3}
       propertyPath: nothingLayer.m_Bits
       value: 9472
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911023511901707906, guid: cfeebb3639174f6428753ab00597fa04,
+        type: 3}
+      propertyPath: planeLayer.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911023511901707906, guid: cfeebb3639174f6428753ab00597fa04,
+        type: 3}
+      propertyPath: planeCheckRange
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7911023511901707908, guid: cfeebb3639174f6428753ab00597fa04,
         type: 3}
