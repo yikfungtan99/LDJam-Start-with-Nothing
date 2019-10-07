@@ -14,11 +14,17 @@ public class GameManager : MonoBehaviour
     public GameObject pStart, pNothing;
     public checker checkStart, checkNothing;
 
+    public bool startExists;
+
     private bool startSelected, nothingSelected;
 
     public bool startReached, nothingReached;
 
     public bool gameEnd = false;
+
+    public float goalTime;
+    private float goalTimeCounter;
+
 
     // Start is called before the first frame update
     void Start()
@@ -26,14 +32,18 @@ public class GameManager : MonoBehaviour
         startSelected = false;
         nothingSelected = false;
 
-        pStart.GetComponent<playerController>().selected = true;
-        pNothing.GetComponent<playerController>().selected = false;
+        pStart.GetComponent<pStart>().selected = false;
+        pNothing.GetComponent<Nothing>().selected = false;
 
         camMap.SetActive(true);
         camStart.SetActive(false);
         camNothing.SetActive(false);
 
+        startExists = true;
+
         lastCam = camMap;
+
+        goalTimeCounter = goalTime;
     }
 
     // Update is called once per frame
@@ -41,13 +51,13 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (!pStart.GetComponent<playerController>().selected && !pNothing.GetComponent<playerController>().selected)
+            if (!pStart.GetComponent<pStart>().selected && !pNothing.GetComponent<Nothing>().selected)
             {
                 startSelected = true;
                 CameraChange(camStart);
             }
 
-            if (pStart.GetComponent<playerController>().selected)
+            if (pStart.GetComponent<pStart>().selected)
             {
                 startSelected = false;
                 nothingSelected = true;
@@ -55,7 +65,7 @@ public class GameManager : MonoBehaviour
                 CameraChange(camNothing);
             }
 
-            if(pNothing.GetComponent<playerController>().selected)
+            if(pNothing.GetComponent<Nothing>().selected && startExists)
             {
                 startSelected = true;
                 nothingSelected = false;
@@ -69,14 +79,26 @@ public class GameManager : MonoBehaviour
             CameraChange(camMap);
         }
 
-        pStart.GetComponent<playerController>().selected = startSelected;
-        pNothing.GetComponent<playerController>().selected = nothingSelected;
+        if (startExists)
+        {
+            pStart.GetComponent<pStart>().selected = startSelected;
+        }
+        
+        pNothing.GetComponent<Nothing>().selected = nothingSelected;
 
         //win condition
 
         if(startReached && nothingReached)
         {
-            gameEnd = true;
+            if(goalTimeCounter <= 0)
+            {
+                gameEnd = true;
+                goalTimeCounter = goalTime;
+            }
+            else
+            {
+                goalTimeCounter -= Time.deltaTime;
+            }
         }
 
         if (checkStart.reached)

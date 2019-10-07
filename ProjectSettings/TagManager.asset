@@ -7,6 +7,8 @@ TagManager:
   - Start
   - Nothing
   - Edible
+  - With
+  - Plane
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Star
   - Edible
   - Placeable
-  - 
+  - Plane
   - 
   - 
   - 

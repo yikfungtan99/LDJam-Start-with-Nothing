@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 54030612551093609}
   - component: {fileID: 2812367814279413585}
   - component: {fileID: 2069734021957606235}
-  - component: {fileID: 479049108545380910}
   m_Layer: 8
   m_Name: checkNothing
   m_TagString: Untagged
@@ -151,32 +150,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.54, y: 0.04}
   m_EdgeRadius: 0
---- !u!61 &479049108545380910
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2203056159639173544}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -1.2414689, y: 0.19806898}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.54, y: 0.04}
-    newSize: {x: 2.54, y: 0.04}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.05706215, y: 0.4361379}
-  m_EdgeRadius: 0
 --- !u!1 &3138495179206790150
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +220,7 @@ GameObject:
   - component: {fileID: 2685464145557386211}
   - component: {fileID: 1129043269}
   m_Layer: 8
-  m_Name: Goal
+  m_Name: With
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,7 +281,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d5d174acf76586b4aac6175feda4caaf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f9ff8e9d07dcfdc4eb5690a3fce7c5d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -336,7 +309,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.37, y: 0.36}
+    oldSize: {x: 1.06, y: 0.39}
     newSize: {x: 1.37, y: 0.36}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -379,7 +352,6 @@ GameObject:
   - component: {fileID: 5110452265351484242}
   - component: {fileID: 2428170}
   - component: {fileID: 7149200628890237248}
-  - component: {fileID: 3451167389358555964}
   m_Layer: 8
   m_Name: checkStart
   m_TagString: Untagged
@@ -516,30 +488,4 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 2.54, y: 0.04}
-  m_EdgeRadius: 0
---- !u!61 &3451167389358555964
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8342261340340686094}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 1.2131736, y: 0.24758625}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.54, y: 0.04}
-    newSize: {x: 2.54, y: 0.04}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.113652706, y: 0.25221586}
   m_EdgeRadius: 0
