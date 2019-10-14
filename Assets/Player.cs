@@ -2,47 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pStart : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    public LayerMask startLayer;
     public GameManager gm;
 
-    public bool selected = false;
-
-    /**
-    private Rigidbody2D rb;
-    //private SpriteRenderer sprite;
-
     public float moveSpeed = 1f;
-    //public bool faceLeft = false;
-
     public float jumpForce = 10f;
     public float groundCheckRange = 1f;
     public bool onGround;
     public bool onPlane;
     public bool onAlien;
+    //public float planeSpeed;
 
-    public float planeSpeed;
-
+    private Rigidbody2D rb;
     Collider2D groundCheckBox;
     RaycastHit2D planeCheck;
-
     public LayerMask planeLayer;
     public float planeCheckRange;
-
-    **/
+    private bool isSelected;
+    private LayerMask myLayer;
 
     // Start is called before the first frame update
     void Start()
     {
-        //rb = this.GetComponent<Rigidbody2D>();
+        rb = this.GetComponent<Rigidbody2D>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        /**
-        groundCheckBox = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.7f, transform.position.y), new Vector2(transform.position.x + 0.3f, transform.position.y - groundCheckRange), startLayer);
+        if(this.GetComponent<pStart>() != null)
+        {
+            isSelected = this.GetComponent<pStart>().selected;
+            myLayer = this.GetComponent<pStart>().startLayer;
+        }
+
+        if (this.GetComponent<Nothing>() != null)
+        {
+            isSelected = this.GetComponent<Nothing>().selected;
+            myLayer = this.GetComponent<Nothing>().nothingLayer;
+        }
+
+
+        groundCheckBox = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.7f, transform.position.y), new Vector2(transform.position.x + 0.35f, transform.position.y - groundCheckRange), myLayer);
         planeCheck = Physics2D.Raycast(transform.position, -Vector2.up, planeCheckRange, planeLayer);
 
         if (groundCheckBox)
@@ -73,13 +76,12 @@ public class pStart : MonoBehaviour
         {
             this.transform.SetParent(null);
         }
-    **/
     }
 
     private void FixedUpdate()
     {
-        /**
-        if (selected && !gm.gameEnd)
+
+        if (!gm.gameEnd && isSelected)
         {
             //Horizontal
             rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, rb.velocity.y);
@@ -107,14 +109,11 @@ public class pStart : MonoBehaviour
         {
             rb.velocity = new Vector3(0, rb.velocity.x);
         }
-    **/
     }
 
-    /**
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(new Vector2(transform.position.x - 0.7f, transform.position.y), new Vector2(transform.position.x + 0.3f, transform.position.y - groundCheckRange));
+        Gizmos.DrawLine(new Vector2(transform.position.x - 0.7f, transform.position.y), new Vector2(transform.position.x + 0.35f, transform.position.y - groundCheckRange));
     }
-    **/
 }

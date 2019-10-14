@@ -12,6 +12,7 @@ public class Nothing : MonoBehaviour
 
     public bool selected = false;
 
+    /**
     private Rigidbody2D rb;
     public float moveSpeed = 1f;
     //public bool faceLeft = false;
@@ -22,11 +23,14 @@ public class Nothing : MonoBehaviour
     public bool onPlane;
     public float planeSpeed;
 
-    RaycastHit2D groundCheck;
+    Collider2D groundCheckBox;
     RaycastHit2D planeCheck;
 
     public LayerMask planeLayer;
     public float planeCheckRange;
+
+    public bool onAlien;
+    **/
 
     public float eatCheckRange = 1f;
     RaycastHit2D eatCheck;
@@ -42,13 +46,12 @@ public class Nothing : MonoBehaviour
     private GameObject ghostToPlace;
 
     public GameObject someThing;
-    private Sprite sprNothing;
+    public Sprite sprNothing;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
-        sprNothing = this.GetComponent<SpriteRenderer>().sprite;
+        //rb = this.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -56,19 +59,31 @@ public class Nothing : MonoBehaviour
     {
         eatCheck = Physics2D.Raycast(transform.position, -Vector2.up, eatCheckRange, edibleLayer);
         placeCheck = Physics2D.Raycast(transform.position, -Vector2.up, placeCheckRange, placeableLayer);
-        groundCheck = Physics2D.Raycast(transform.position, -Vector2.up, groundCheckRange, nothingLayer);
-        planeCheck = Physics2D.Raycast(transform.position, -Vector2.up, planeCheckRange, planeLayer);
-
+        //groundCheckBox = Physics2D.OverlapArea(new Vector2(transform.position.x - 1, transform.position.y), new Vector2(transform.position.x + 1, transform.position.y - groundCheckRange), nothingLayer);
+        //planeCheck = Physics2D.Raycast(transform.position, -Vector2.up, planeCheckRange, planeLayer);
+        
+        /**
         if (planeCheck.collider)
         {
-            onPlane = true;
-            this.transform.parent = planeCheck.collider.transform;
+            if(planeCheck.collider.tag == "Plane")
+            {
+                onPlane = true;
+                this.transform.parent = planeCheck.collider.transform;
+            }
+
+            if(planeCheck.collider.tag == "Alien")
+            {
+                onAlien = true;
+                this.transform.parent = planeCheck.collider.transform;
+            }
+           
         }
         else
         {
             this.transform.SetParent(null);
         }
-        if (groundCheck.collider)
+
+        if (groundCheckBox)
         {
             onGround = true;
         }
@@ -76,6 +91,7 @@ public class Nothing : MonoBehaviour
         {
             onGround = false;
         }
+        **/
 
         if (selected && !gm.gameEnd)
         {
@@ -89,10 +105,11 @@ public class Nothing : MonoBehaviour
                         if (eatCheck.collider != null)
                         {
 
-                           item = eatCheck.collider.transform.parent.gameObject;     
-                           ItemCheck();     
-                           Swallow(eatCheck.collider.transform.parent.gameObject);     
+                            item = eatCheck.collider.transform.parent.gameObject;
+                            ItemCheck();
 
+                            Swallow(eatCheck.collider.transform.parent.gameObject);
+                            
                         }
                     }
                 }
@@ -107,23 +124,27 @@ public class Nothing : MonoBehaviour
                     }
                 }
             }
+           
+        }
 
-            if (haveItem)
-            {
-                this.GetComponent<SpriteRenderer>().sprite = null;
-                someThing.SetActive(true);
-            }
-            else
-            {
-                this.GetComponent<SpriteRenderer>().sprite = sprNothing;
-                someThing.SetActive(false);
-            }
+        if (haveItem)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = null;
+            someThing.SetActive(true);
+            isSomething = true;
+        }
+        if (!haveItem)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = sprNothing;
+            someThing.SetActive(false);
+            isSomething = false;
         }
     }
 
     void FixedUpdate()
     {
-        if (selected && !gm.gameEnd)
+        /**
+        if (isSelected && !gm.gameEnd)
         {
             //Horizontal
             rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, rb.velocity.y);
@@ -135,7 +156,7 @@ public class Nothing : MonoBehaviour
             }
         }
 
-        if (!selected && !gm.gameEnd)
+        if (!isSelected && !gm.gameEnd)
         {
             if (rb.velocity.x > 0)
             {
@@ -152,6 +173,7 @@ public class Nothing : MonoBehaviour
         {
             rb.velocity = new Vector3(0, rb.velocity.x);
         }
+        **/
     }
 
     void Swallow(GameObject target)
@@ -165,8 +187,30 @@ public class Nothing : MonoBehaviour
 
         if(target.tag == "Plane")
         {
-            transform.SetParent(null);
-            gm.pStart.transform.SetParent(null);
+            if (this.GetComponent<Player>().onPlane)
+            {
+                transform.SetParent(null);
+            }
+
+            if (gm.pStart.GetComponent<Player>().onPlane)
+            {
+                gm.pStart.transform.SetParent(null);
+            }
+            
+        }
+
+        if(target.tag == "Alien")
+        {
+            if (this.GetComponent<Player>().onAlien)
+            {
+                transform.SetParent(null);
+            }
+
+            if (gm.pStart.GetComponent<Player>().onAlien)
+            {
+                gm.pStart.transform.SetParent(null);
+            }
+            
         }
 
         target.SetActive(false);
@@ -177,27 +221,36 @@ public class Nothing : MonoBehaviour
     void Place(GameObject target)
     {
         haveItem = false;
-        Destroy(target);
-
+        
         if (item.tag == "Start")
         {
-            gm.startExists = true;
+            item.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         item.SetActive(true);
         item.transform.position = target.transform.position;
         item.transform.rotation = target.transform.rotation;
         //Instantiate(itemToPlace, target.transform.position, target.transform.rotation);
+        Destroy(target);
     }
+
     void ItemCheck()
     {
         for (int i = 0; i < bl.blocks.Length; i++)
         {
-            if (item.name == bl.blocks[i].name)
+            if (item.tag == bl.blocks[i].name)
             {
-                //itemToPlace = bl.blocks[i];
+                itemToPlace = bl.blocks[i];
                 ghostToPlace = bl.ghosts[i];
             }
         }
     }
+
+    /**
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(new Vector2(transform.position.x - 1, transform.position.y), new Vector2(transform.position.x + 1, transform.position.y - groundCheckRange));
+    }
+    **/
 }

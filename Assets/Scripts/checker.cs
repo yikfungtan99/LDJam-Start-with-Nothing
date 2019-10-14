@@ -28,7 +28,7 @@ public class checker : MonoBehaviour
 
         if (checkNothing)
         {
-            if (collision.gameObject.tag == "Nothing")
+            if (collision.gameObject.tag == "Nothing" && !collision.gameObject.GetComponent<Nothing>().isSomething)
             {
                 reached = true;
             }

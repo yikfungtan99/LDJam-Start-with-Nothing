@@ -9,6 +9,9 @@ TagManager:
   - Edible
   - With
   - Plane
+  - Alien
+  - Platform
+  - Dummy
   layers:
   - Default
   - TransparentFX
@@ -24,7 +27,7 @@ TagManager:
   - Edible
   - Placeable
   - Plane
-  - 
+  - Alien
   - 
   - 
   - 
