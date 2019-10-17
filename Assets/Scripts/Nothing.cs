@@ -7,30 +7,10 @@ public class Nothing : MonoBehaviour
     public bool isSomething;
     public LayerMask nothingLayer;
 
-    public GameManager gm;
+    private GameManager gm;
     public blockLibrary bl;
 
     public bool selected = false;
-
-    /**
-    private Rigidbody2D rb;
-    public float moveSpeed = 1f;
-    //public bool faceLeft = false;
-
-    public float jumpForce = 10f;
-    public float groundCheckRange = 1f;
-    public bool onGround;
-    public bool onPlane;
-    public float planeSpeed;
-
-    Collider2D groundCheckBox;
-    RaycastHit2D planeCheck;
-
-    public LayerMask planeLayer;
-    public float planeCheckRange;
-
-    public bool onAlien;
-    **/
 
     public float eatCheckRange = 1f;
     RaycastHit2D eatCheck;
@@ -48,15 +28,20 @@ public class Nothing : MonoBehaviour
     public GameObject someThing;
     public Sprite sprNothing;
 
+    //public string jump_sound;
+
     // Start is called before the first frame update
     void Start()
     {
-        //rb = this.GetComponent<Rigidbody2D>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        transform.Find("eatChecker").gameObject.SetActive(selected);
+
         eatCheck = Physics2D.Raycast(transform.position, -Vector2.up, eatCheckRange, edibleLayer);
         placeCheck = Physics2D.Raycast(transform.position, -Vector2.up, placeCheckRange, placeableLayer);
         //groundCheckBox = Physics2D.OverlapArea(new Vector2(transform.position.x - 1, transform.position.y), new Vector2(transform.position.x + 1, transform.position.y - groundCheckRange), nothingLayer);
@@ -95,33 +80,39 @@ public class Nothing : MonoBehaviour
 
         if (selected && !gm.gameEnd)
         {
-
-            if (Input.GetKeyDown(KeyCode.F))
+            if (eatCheck)
             {
                 if (!haveItem)
                 {
-                    if (eatCheck)
+                    if (eatCheck.collider != null)
                     {
-                        if (eatCheck.collider != null)
+                        if (eatCheck.collider.transform.parent.gameObject.transform.Find("Highlight") != null)
                         {
-
+                            eatCheck.collider.transform.parent.gameObject.transform.Find("Highlight").gameObject.SetActive(true);
+                        }
+                        
+                        if (Input.GetKeyDown(KeyCode.F))
+                        {
                             item = eatCheck.collider.transform.parent.gameObject;
                             ItemCheck();
 
                             Swallow(eatCheck.collider.transform.parent.gameObject);
-                            
                         }
                     }
-                }
-                else
+                }     
+            }
+
+            if (placeCheck)
+            {
+                if (haveItem)
                 {
-                    if (placeCheck)
-                    {
-                        if (placeCheck.collider != null)
-                        {
-                            Place(placeCheck.collider.transform.parent.gameObject);
-                        }
-                    }
+                    if (placeCheck.collider != null)    
+                    {    
+                        if (Input.GetKeyDown(KeyCode.F))    
+                        {    
+                            Place(placeCheck.collider.transform.parent.gameObject);    
+                        }    
+                    }    
                 }
             }
            
@@ -183,6 +174,7 @@ public class Nothing : MonoBehaviour
         if(target.tag == "Start")
         {
             gm.startExists = false;
+            target.GetComponent<pStart>().eaten = true;
         }
 
         if(target.tag == "Plane")
@@ -222,12 +214,14 @@ public class Nothing : MonoBehaviour
     {
         haveItem = false;
         
+        item.SetActive(true);
+
         if (item.tag == "Start")
         {
-            item.transform.GetChild(0).gameObject.SetActive(false);
+            item.GetComponent<pStart>().eaten = false;
+            gm.startExists = true;
         }
 
-        item.SetActive(true);
         item.transform.position = target.transform.position;
         item.transform.rotation = target.transform.rotation;
         //Instantiate(itemToPlace, target.transform.position, target.transform.rotation);
@@ -253,4 +247,9 @@ public class Nothing : MonoBehaviour
         Gizmos.DrawLine(new Vector2(transform.position.x - 1, transform.position.y), new Vector2(transform.position.x + 1, transform.position.y - groundCheckRange));
     }
     **/
+
+    private void OnBecameInvisible()
+    {
+        gm.nothingDead = true;
+    }
 }

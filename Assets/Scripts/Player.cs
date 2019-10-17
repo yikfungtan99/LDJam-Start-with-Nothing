@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameManager gm;
+    private AudioManager am;
 
     public float moveSpeed = 1f;
     public float jumpForce = 10f;
@@ -22,17 +23,22 @@ public class Player : MonoBehaviour
     private bool isSelected;
     private LayerMask myLayer;
 
+    public string jump_sound;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        am = gm.am;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if(this.GetComponent<pStart>() != null)
+    {   
+        this.transform.Find("select").gameObject.SetActive(isSelected);
+
+        if (this.GetComponent<pStart>() != null)
         {
             isSelected = this.GetComponent<pStart>().selected;
             myLayer = this.GetComponent<pStart>().startLayer;
@@ -58,7 +64,7 @@ public class Player : MonoBehaviour
         }
 
         if (planeCheck.collider)
-        {
+        {   
             if (planeCheck.collider.tag == "Plane")
             {
                 onPlane = true;
@@ -83,13 +89,23 @@ public class Player : MonoBehaviour
 
         if (!gm.gameEnd && isSelected)
         {
-            //Horizontal
-            rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, rb.velocity.y);
+            //Horizontal    
+            rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime, rb.velocity.y);    
+            
 
             //Jump
-            if (Input.GetButtonDown("Jump") && onGround)
+            if (Input.GetButton("Jump") && onGround)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+
+                if (am == null)
+                {
+                    Debug.Log("audiomanager not found");
+                }
+                else{
+                    am.Play(jump_sound);
+                }
+
             }
 
         }

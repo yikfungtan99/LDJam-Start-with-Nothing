@@ -5,7 +5,7 @@ using UnityEngine;
 public class Plane : MonoBehaviour
 {
     public float speed;
-    public float mspd;
+    private float mspd;
 
     private void FixedUpdate()
     {
@@ -16,15 +16,10 @@ public class Plane : MonoBehaviour
     {
         if(collision.tag == "Start")
         {
-            mspd = speed;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "Start")
-        {
-            mspd = 0;
+            if (collision.gameObject.GetComponent<pStart>().startStuff)
+            {
+                mspd = speed;
+            }
         }
     }
 

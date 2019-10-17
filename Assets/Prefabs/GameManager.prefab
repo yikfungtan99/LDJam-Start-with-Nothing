@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3940532114805508151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3940532114805508169}
+  - component: {fileID: 3940532114805508168}
+  - component: {fileID: 3940532114805508170}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3940532114805508169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940532114805508151}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.1307013, y: -1.4910256, z: 8.465568}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3940532114805508168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940532114805508151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec4b521f7379ad40b7f42fbc49770c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  am: {fileID: 0}
+  camMap: {fileID: 0}
+  pStart: {fileID: 0}
+  pNothing: {fileID: 0}
+  checkStart: {fileID: 0}
+  checkNothing: {fileID: 0}
+  startExists: 0
+  startReached: 0
+  nothingReached: 0
+  gameEnd: 0
+  gameRestart: 1
+  goalTime: 0.7
+  nextLevel: {fileID: 0}
+  help: {fileID: 0}
+  nothingDead: 0
+  startDead: 0
+--- !u!114 &3940532114805508170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940532114805508151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0474b88a70a48f74fae5cf1c7c5dc49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blocks:
+  - {fileID: 2662508402244051663, guid: 2146d7ae203ff524491124bce543a4dd, type: 3}
+  - {fileID: 2476879669649872027, guid: 56a7d272d6af6f24db7ad6a12db27d36, type: 3}
+  - {fileID: 5098440775973248998, guid: a581e2e80fcf2914f8352f540aca53a3, type: 3}
+  - {fileID: 4714635067214301085, guid: ed8e7ecdd9487354280481337ef2a50b, type: 3}
+  - {fileID: 4094950707029234831, guid: 9f67578073009814ba90e4d7bc9f736e, type: 3}
+  - {fileID: 9137042249831312521, guid: f1c80e6de2f98be4c8c3a52913ed2646, type: 3}
+  ghosts:
+  - {fileID: 4407915676934533856, guid: 5033a608217ed6541a09c1923aff4d0b, type: 3}
+  - {fileID: 2664342881308631941, guid: e7799d28e395d054b9219229a2b964e5, type: 3}
+  - {fileID: 2733068458042092068, guid: 17989ac9296eefb4baf7d14aaa04eeff, type: 3}
+  - {fileID: 432037190464895968, guid: ff001a7a9136c9a48a030e9e0daf2e6f, type: 3}
+  - {fileID: 3579647648779936099, guid: 3aa7a44f8f5a90a48bab542eeed041de, type: 3}
+  - {fileID: 4568845636406219673, guid: bc336ddb83f0faf4d920f283ccd41245, type: 3}

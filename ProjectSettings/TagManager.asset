@@ -12,6 +12,7 @@ TagManager:
   - Alien
   - Platform
   - Dummy
+  - EatChecker
   layers:
   - Default
   - TransparentFX

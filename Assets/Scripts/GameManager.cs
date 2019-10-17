@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public AudioManager am;
 
     public GameObject camMap;
         
@@ -33,13 +34,23 @@ public class GameManager : MonoBehaviour
     public GameObject nextLevel;
     public GameObject help;
 
+    public bool nothingDead;
+    public bool startDead;
+
+    private void Awake()
+    {
+        am = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        pStart.GetComponent<pStart>().selected = true;
+        startExists = true;
+
+        startSelected = true;
         nothingSelected = false;
 
+        pStart.GetComponent<pStart>().selected = true;
         pNothing.GetComponent<Nothing>().selected = false;
 
         //camMap.SetActive(false);
@@ -47,7 +58,7 @@ public class GameManager : MonoBehaviour
         //camNothing.SetActive(false);
 
         //lastCam = camStart;
-
+ 
         goalTimeCounter = goalTime;
 
         gameRestart = false;
@@ -60,17 +71,17 @@ public class GameManager : MonoBehaviour
         {
             if (pStart.GetComponent<pStart>().selected)
             {
-                pStart.GetComponent<pStart>().selected = false;
+                startSelected = false;
                 nothingSelected = true;
 
                 //CameraChange(camNothing);
             }
 
-            if (pNothing.GetComponent<Nothing>().selected && pStart != null)
+            if (pNothing.GetComponent<Nothing>().selected && startExists)
             {
-                pStart.GetComponent<pStart>().selected = true;
+                startSelected = true;
                 nothingSelected = false;
-
+                
                 //CameraChange(camStart);
             }
         }
@@ -82,6 +93,11 @@ public class GameManager : MonoBehaviour
         }
         **/
 
+        if (startExists)
+        {
+            pStart.GetComponent<pStart>().selected = startSelected;
+        }
+        
         pNothing.GetComponent<Nothing>().selected = nothingSelected;
 
         //win condition
@@ -120,6 +136,12 @@ public class GameManager : MonoBehaviour
         if (gameEnd)
         {
             nextLevel.SetActive(true);
+        }
+
+        //lose condition
+        if(startDead || nothingDead)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
